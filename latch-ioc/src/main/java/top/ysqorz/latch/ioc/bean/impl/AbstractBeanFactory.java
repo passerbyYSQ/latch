@@ -3,8 +3,6 @@ package top.ysqorz.latch.ioc.bean.impl;
 import top.ysqorz.latch.ioc.bean.BeanDefinition;
 import top.ysqorz.latch.ioc.bean.BeanFactory;
 
-import java.util.Objects;
-
 /**
  * ...
  *
@@ -17,6 +15,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      */
     @Override
     public Object getBean(String name) {
+        return getBean(name, new Object[0]);
+    }
+
+    @Override
+    public Object getBean(String name, Object... args) {
         // 如果单例已缓存，则直接返回
         Object bean = getSingleton(name);
         if (bean != null) {
@@ -24,10 +27,10 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         }
         // 获取bean定义并实例化bean
         BeanDefinition beanDefinition = getBeanDefinition(name);
-        return createBean(name, beanDefinition);
+        return createBean(name, beanDefinition, args);
     }
 
     protected abstract BeanDefinition getBeanDefinition(String name);
 
-    protected abstract Object createBean(String name, BeanDefinition beanDefinition);
+    protected abstract Object createBean(String name, BeanDefinition beanDefinition, Object... args);
 }

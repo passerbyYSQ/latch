@@ -8,4 +8,6 @@ package top.ysqorz.latch.ioc.bean;
  */
 public interface BeanFactory {
     Object getBean(String name);
+
+    Object getBean(String name, Object... args);
 }
