@@ -18,6 +18,9 @@ public class JdkInstantiationStrategy implements InstantiationStrategy {
     public Object instantiate(BeanDefinition beanDefinition, Object... args) {
         Class<?> clazz = beanDefinition.getBeanClass();
         try {
+            if (args == null || args.length == 0) {
+                return clazz.getDeclaredConstructor().newInstance();
+            }
             Class<?>[] paramTypes = ReflectUtil.getClasses(args);
             Constructor<?> constructor = ReflectUtil.getConstructor(clazz, paramTypes);
             if (constructor == null) {

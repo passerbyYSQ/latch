@@ -7,26 +7,18 @@ package top.ysqorz.latch.ioc.bean;
  * @date 2025/2/19
  */
 public class UserService {
-    private Object name;
-    private int age;
-
-    public UserService() {
-    }
-
-    public UserService(Object name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+    private String userId;
+    private UserDao userDao;
 
     public void queryUserInfo() {
-        System.out.println("查询用户信息：" + this);
+        System.out.println("查询用户信息：" + userDao.queryByUserId(userId));
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "name=" + name +
-                ", age=" + age +
-                "}";
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
